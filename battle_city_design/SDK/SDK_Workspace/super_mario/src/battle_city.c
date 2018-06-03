@@ -11,6 +11,35 @@
  */
 
 // ***** 16x16 IMAGES *****
+#define IMG_16x16_bg00			0x00FF
+#define IMG_16x16_bg01			0x013F
+#define IMG_16x16_bg02			0x017F
+#define IMG_16x16_bg10			0x01BF
+#define IMG_16x16_bg11			0x01FF
+#define IMG_16x16_bg12			0x023F
+#define IMG_16x16_bg20			0x027F
+#define IMG_16x16_bg21			0x02BF
+#define IMG_16x16_bg22			0x02FF
+#define IMG_16x16_bg30			0x033F
+#define IMG_16x16_bg31			0x037F
+#define IMG_16x16_bg32			0x03BF
+#define IMG_16x16_bg40			0x03FF
+#define IMG_16x16_bg41			0x043F
+#define IMG_16x16_bg42			0x047F
+#define IMG_16x16_bg50			0x04BF
+#define IMG_16x16_bg51			0x04FF
+#define IMG_16x16_bg52			0x053F
+#define IMG_16x16_cursor			0x057F
+#define IMG_16x16_pl00			0x05BF
+#define IMG_16x16_pl01			0x05FF
+#define IMG_16x16_pl10			0x063F
+#define IMG_16x16_pl11			0x067F
+#define IMG_16x16_pr00			0x06BF
+#define IMG_16x16_pr01			0x06FF
+#define IMG_16x16_pr10			0x073F
+#define IMG_16x16_pr11			0x077F
+#define IMG_16x16_sky			0x07BF
+
 #define IMG_16x16_cigle			0x00FF //2
 #define IMG_16x16_coin			0x013F //5
 #define IMG_16x16_crno			0x017F //0
@@ -19,7 +48,7 @@
 #define IMG_16x16_plavacigla	0x023F //3
 // ***** MAP *****
 
-#define MAP_BASE_ADDRESS			639 // MAP_OFFSET in battle_city.vhd
+#define MAP_BASE_ADDRESS			2047 // MAP_OFFSET in battle_city.vhd
 #define MAP_X							0
 #define MAP_X2							640
 #define MAP_Y							4
@@ -61,6 +90,7 @@ int udario_glavom_skok = 0;
 int map_move = 0;
 int brojac = 0;
 int udario_u_blok = 0;
+int direction = 0;
 
 typedef enum {
 	b_false, b_true
@@ -82,6 +112,104 @@ typedef struct {
 	unsigned int reg_h;
 } characters;
 
+characters cursor = { 300,						// x
+		200,						// y
+		DIR_LEFT,              		// dir
+		IMG_16x16_cursor,  		// type
+
+		b_false,                		// destroyed
+
+		TANK_AI_REG_L5,            		// reg_l
+		TANK_AI_REG_H5             		// reg_h
+		};
+
+characters duck1_right = { 160,	                        // x
+		131, 		                     // y
+		DIR_RIGHT,              		// dir
+		IMG_16x16_pr00,  			// type
+
+		b_false,                		// destroyed
+
+		TANK1_REG_L,            		// reg_l
+		TANK1_REG_H             		// reg_h
+		};
+
+characters duck2_right = { 176,	                        // x
+		131, 		                     // y
+		DIR_RIGHT,              		// dir
+		IMG_16x16_pr01,  			// type
+
+		b_false,                		// destroyed
+
+		TANK_AI_REG_L2,            		// reg_l
+		TANK_AI_REG_H2             		// reg_h
+		};
+
+characters duck3_right = { 160,	                        // x
+		147, 		                     // y
+		DIR_RIGHT,              		// dir
+		IMG_16x16_pr10,  			// type
+
+		b_false,                		// destroyed
+
+		TANK_AI_REG_L3,            		// reg_l
+		TANK_AI_REG_H3             		// reg_h
+		};
+
+characters duck4_right = { 176,	                        // x
+		147, 		                     // y
+		DIR_RIGHT,              		// dir
+		IMG_16x16_pr11,  			// type
+
+		b_false,                		// destroyed
+
+		TANK_AI_REG_L4,            		// reg_l
+		TANK_AI_REG_H4             		// reg_h
+		};
+
+characters duck1_left = { 160,	                        // x
+		131, 		                     // y
+		DIR_RIGHT,              		// dir
+		IMG_16x16_pl00,  			// type
+
+		b_false,                		// destroyed
+
+		TANK1_REG_L,            		// reg_l
+		TANK1_REG_H             		// reg_h
+		};
+
+characters duck2_left = { 176,	                        // x
+		131, 		                     // y
+		DIR_RIGHT,              		// dir
+		IMG_16x16_pl01,  			// type
+
+		b_false,                		// destroyed
+
+		TANK_AI_REG_L2,            		// reg_l
+		TANK_AI_REG_H2             		// reg_h
+		};
+
+characters duck3_left = { 160,	                        // x
+		147, 		                     // y
+		DIR_RIGHT,              		// dir
+		IMG_16x16_pl10,  			// type
+
+		b_false,                		// destroyed
+
+		TANK_AI_REG_L3,            		// reg_l
+		TANK_AI_REG_H3             		// reg_h
+		};
+
+characters duck4_left = { 176,	                        // x
+		147, 		                     // y
+		DIR_RIGHT,              		// dir
+		IMG_16x16_pl11,  			// type
+
+		b_false,                		// destroyed
+
+		TANK_AI_REG_L4,            		// reg_l
+		TANK_AI_REG_H4             		// reg_h
+		};
 characters mario = { 10,	                        // x
 		431, 		                     // y
 		DIR_RIGHT,              		// dir
@@ -113,6 +241,34 @@ static void chhar_spawn(characters * chhar) {
 	Xil_Out32(
 			XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + chhar->reg_h ),
 			(chhar->y << 16) | chhar->x);
+}
+
+static void chhar_spawn_duck(characters *duck1, characters *duck2,
+		characters *duck3, characters *duck4) {
+	Xil_Out32(
+			XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + duck1->reg_l ),
+			(unsigned int )0x8F000000 | (unsigned int )duck1->type);
+	Xil_Out32(
+			XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + duck2->reg_l ),
+			(unsigned int )0x8F000000 | (unsigned int )duck2->type);
+	Xil_Out32(
+			XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + duck3->reg_l ),
+			(unsigned int )0x8F000000 | (unsigned int )duck3->type);
+	Xil_Out32(
+			XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + duck4->reg_l ),
+			(unsigned int )0x8F000000 | (unsigned int )duck4->type);
+	Xil_Out32(
+			XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + duck1->reg_h ),
+			(duck1->y << 16) | duck1->x);
+	Xil_Out32(
+			XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + duck2->reg_h ),
+			(duck2->y << 16) | duck2->x);
+	Xil_Out32(
+			XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + duck3->reg_h ),
+			(duck3->y << 16) | duck3->x);
+	Xil_Out32(
+			XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + duck4->reg_h ),
+			(duck4->y << 16) | duck4->x);
 }
 
 static void map_update(characters * mario) {
