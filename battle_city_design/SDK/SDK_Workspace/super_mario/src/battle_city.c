@@ -93,49 +93,6 @@ characters mario = { 10,	                        // x
 		TANK1_REG_H             		// reg_h
 		};
 
-characters enemie1 = { 331,						// x
-		431,						// y
-		DIR_LEFT,              		// dir
-		IMG_16x16_enemi1,  		// type
-
-		b_false,                		// destroyed
-
-		TANK_AI_REG_L,            		// reg_l
-		TANK_AI_REG_H             		// reg_h
-		};
-
-characters enemie2 = { 450,						// x
-		431,						// y
-		DIR_LEFT,              		// dir
-		IMG_16x16_enemi1,  		// type
-
-		b_false,                		// destroyed
-
-		TANK_AI_REG_L2,            		// reg_l
-		TANK_AI_REG_H2             		// reg_h
-		};
-
-characters enemie3 = { 330,						// x
-		272,						// y
-		DIR_LEFT,              		// dir
-		IMG_16x16_enemi1,  		// type
-
-		b_false,                		// destroyed
-
-		TANK_AI_REG_L3,            		// reg_l
-		TANK_AI_REG_H3             		// reg_h
-		};
-
-characters enemie4 = { 635,						// x
-		431,						// y
-		DIR_LEFT,              		// dir
-		IMG_16x16_enemi1,  		// type
-
-		b_false,                		// destroyed
-
-		TANK_AI_REG_L4,            		// reg_l
-		TANK_AI_REG_H4             		// reg_h
-		};
 
 unsigned int rand_lfsr113(void) {
 	static unsigned int z1 = 12345, z2 = 12345;
