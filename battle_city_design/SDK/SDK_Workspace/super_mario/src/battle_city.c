@@ -443,6 +443,8 @@ void battle_city() {
 	unsigned int buttons, tmpBtn = 0, tmpUp = 0;
 	int i, change = 0, jumpFlag = 0;
 	int block;
+	//lives = 3;
+	broj_promasaja = 0;
 
 	map_reset(map1);
 	map_update(&mario);
@@ -452,7 +454,14 @@ void battle_city() {
 	//chhar_spawn(&enemie3);
 	//chhar_spawn(&enemie4);
 	chhar_spawn(&mario);
-
+	
+	chhar_spawn(&cursor);
+	chhar_spawn_duck(&duck1_right, &duck2_right, &duck3_right, &duck4_right);
+	
+	while (1) {
+		duck_move();
+	}
+	/*
 	while (1) {
 
 		buttons = XIo_In32( XPAR_IO_PERIPH_BASEADDR );
@@ -479,4 +488,5 @@ void battle_city() {
 		}
 
 	}
+	*/
 }
