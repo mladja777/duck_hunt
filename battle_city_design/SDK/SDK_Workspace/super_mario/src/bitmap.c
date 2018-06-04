@@ -17,7 +17,7 @@ unsigned char * load_bitmap( const char * file )
     bitmap_info_header_t    bmp_info_hdr;
     unsigned char *         img;
 
-    if( !( f = fopen( file, "rb" ) ) ) {
+    if( !( f = fopen( file, "r" ) ) ) {
         return NULL;
     }
 

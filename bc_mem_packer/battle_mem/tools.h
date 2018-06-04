@@ -9,8 +9,7 @@
 
 #define COLOR_PALLETE_BASE_ADDR 0x0000
 #define IMAGE_8x8_BASE_ADDR     0x00FF
-
-#define NUM_MAP_ENTRIES         ( 160 * 30 )
+#define NUM_MAP_ENTRIES         ( 80 * 60 )
 
 typedef enum {
     IMG_8x8,

@@ -11,7 +11,7 @@
  * DATE: Wed Jul 08 21:00:48 2015
  */
 
-// ***** 16x16 IMAGES *****  //check
+// ***** 16x16 IMAGES *****
 #define IMG_16x16_bg00			0x00FF
 #define IMG_16x16_bg01			0x013F
 #define IMG_16x16_bg02			0x017F
@@ -41,6 +41,7 @@
 #define IMG_16x16_pr11			0x077F
 #define IMG_16x16_sky			0x07BF
 
+
 // ***** MAP *****
 #define MAP_BASE_ADDRESS			2047 // MAP_OFFSET in battle_city.vhd
 #define MAP_X							0
@@ -58,6 +59,22 @@
 #define BTN_RIGHT( b )                  ( !( b & 0x08 ) )
 #define BTN_SHOOT( b )                  ( !( b & 0x04 ) )
 
+#define TANK1_REG_L                     8
+#define TANK1_REG_H                     9
+#define TANK_AI_REG_L                   4
+#define TANK_AI_REG_H                   5
+#define TANK_AI_REG_L2                  6
+#define TANK_AI_REG_H2                  7
+#define TANK_AI_REG_L3                  2
+#define TANK_AI_REG_H3                  3
+#define TANK_AI_REG_L4                  10
+#define TANK_AI_REG_H4                  11
+#define TANK_AI_REG_L5                  12
+#define TANK_AI_REG_H5                  13
+#define TANK_AI_REG_L6                  14
+#define TANK_AI_REG_H6                  15
+#define TANK_AI_REG_L7                  16
+#define TANK_AI_REG_H7                  17
 #define BASE_REG_L						0
 #define BASE_REG_H	                    1
 
@@ -194,7 +211,7 @@ characters duck4_left = { 176,	                        // x
 		};
 
 
-unsigned int rand_lfsr113(void) {		//true random
+unsigned int rand_lfsr113(void) {
 	static unsigned int z1 = 12345, z2 = 12345;
 	unsigned int b;
 
@@ -204,22 +221,6 @@ unsigned int rand_lfsr113(void) {		//true random
 	z2 = ((z2 & 4294967288U) << 2) ^ b;
 
 	return (z1 ^ z2);
-}
-
-int random_direction() {
-	int number;
-	number = rand() % 8;
-	return number;
-}
-
-int random() {
-	int number;
-	number = rand() % 150 + 50;
-	return number;
-}
-
-int random_x() {
-	return rand() % 600;
 }
 
 static void chhar_spawn(characters * chhar) {
@@ -277,7 +278,7 @@ static void chhar_spawn_duck_move(characters *duck1, characters *duck2,
 			(duck4->y << 16) | duck4->x);
 }
 
-static void map_update(characters * mario) { //check
+static void map_update() {
 	int x, y;
 	long int addr;
 
@@ -394,6 +395,22 @@ static void map_reset(unsigned char * map) {
 				(unsigned int )0x0F000000);
 	}
 
+}
+
+int random_direction() {
+	int number;
+	number = rand() % 8;
+	return number;
+}
+
+int random() {
+	int number;
+	number = rand() % 150 + 50;
+	return number;
+}
+
+int random_x() {
+	return rand() % 600;
 }
 
 static void cursor_move() {
@@ -787,22 +804,12 @@ void battle_city() {
 	broj_promasaja = 0;
 
 	map_reset(map1);
+	map_update();
 
 	chhar_spawn(&cursor);
 	chhar_spawn_duck(&duck1_right, &duck2_right, &duck3_right, &duck4_right);
 
-	/*while (1) {   //?check
-		duck_move();
-	}*/
-
 	while (1) {
-
 		duck_move();
-
-		map_update(&mario); //check
-
-		for (i = 0; i < 100000; i++) {
-		}
-
 	}
 }

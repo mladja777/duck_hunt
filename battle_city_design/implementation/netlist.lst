@@ -1,14 +1,14 @@
-D:\RA44-2015\DuckHunt\duck_hunt\battle_city_design\implementation\battle_city.ngc 1525335666
-D:/RA44-2015/DuckHunt/duck_hunt/battle_city_design/implementation/battle_city_io_periph_wrapper.ngc 1525335639
-D:/RA44-2015/DuckHunt/duck_hunt/battle_city_design/implementation/battle_city_proc_sys_reset_0_wrapper.ngc 1525335542
-D:/RA44-2015/DuckHunt/duck_hunt/battle_city_design/implementation/battle_city_clock_generator_0_wrapper.ngc 1525335650
-D:/RA44-2015/DuckHunt/duck_hunt/battle_city_design/implementation/battle_city_battle_city_periph_0_wrapper.ngc 1525335632
-D:/RA44-2015/DuckHunt/duck_hunt/battle_city_design/implementation/battle_city_microblaze_0_ilmb_wrapper.ngc 1525335642
-D:/RA44-2015/DuckHunt/duck_hunt/battle_city_design/implementation/battle_city_microblaze_0_dlmb_wrapper.ngc 1525335644
-D:/RA44-2015/DuckHunt/duck_hunt/battle_city_design/implementation/battle_city_axi4lite_0_wrapper.ngc 1525335652
-D:/RA44-2015/DuckHunt/duck_hunt/battle_city_design/implementation/battle_city_microblaze_0_wrapper.ngc 1525335647
-D:/RA44-2015/DuckHunt/duck_hunt/battle_city_design/implementation/battle_city_microblaze_0_i_bram_ctrl_wrapper.ngc 1525335561
-D:/RA44-2015/DuckHunt/duck_hunt/battle_city_design/implementation/battle_city_microblaze_0_d_bram_ctrl_wrapper.ngc 1525335570
-D:/RA44-2015/DuckHunt/duck_hunt/battle_city_design/implementation/battle_city_debug_module_wrapper.ngc 1525335608
-D:/RA44-2015/DuckHunt/duck_hunt/battle_city_design/implementation/battle_city_microblaze_0_bram_block_wrapper.ngc 1525335576
+C:\materija\RA46-2015\projekat_v1\duck_hunt\battle_city_design\implementation\battle_city.ngc 1527490368
+C:/materija/RA46-2015/projekat_v1/duck_hunt/battle_city_design/implementation/battle_city_io_periph_wrapper.ngc 1527490336
+C:/materija/RA46-2015/projekat_v1/duck_hunt/battle_city_design/implementation/battle_city_proc_sys_reset_0_wrapper.ngc 1527490336
+C:/materija/RA46-2015/projekat_v1/duck_hunt/battle_city_design/implementation/battle_city_clock_generator_0_wrapper.ngc 1527490355
+C:/materija/RA46-2015/projekat_v1/duck_hunt/battle_city_design/implementation/battle_city_battle_city_periph_0_wrapper.ngc 1527490352
+C:/materija/RA46-2015/projekat_v1/duck_hunt/battle_city_design/implementation/battle_city_microblaze_0_ilmb_wrapper.ngc 1527490336
+C:/materija/RA46-2015/projekat_v1/duck_hunt/battle_city_design/implementation/battle_city_microblaze_0_dlmb_wrapper.ngc 1527490336
+C:/materija/RA46-2015/projekat_v1/duck_hunt/battle_city_design/implementation/battle_city_axi4lite_0_wrapper.ngc 1527490336
+C:/materija/RA46-2015/projekat_v1/duck_hunt/battle_city_design/implementation/battle_city_microblaze_0_wrapper.ngc 1527490336
+C:/materija/RA46-2015/projekat_v1/duck_hunt/battle_city_design/implementation/battle_city_microblaze_0_i_bram_ctrl_wrapper.ngc 1527490336
+C:/materija/RA46-2015/projekat_v1/duck_hunt/battle_city_design/implementation/battle_city_microblaze_0_d_bram_ctrl_wrapper.ngc 1527490336
+C:/materija/RA46-2015/projekat_v1/duck_hunt/battle_city_design/implementation/battle_city_debug_module_wrapper.ngc 1527490336
+C:/materija/RA46-2015/projekat_v1/duck_hunt/battle_city_design/implementation/battle_city_microblaze_0_bram_block_wrapper.ngc 1527490336
 OK
