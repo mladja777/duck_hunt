@@ -107,10 +107,11 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1465831593" xil_pn:in_ck="3153255567802740610" xil_pn:name="TRANEXT_xstsynthesize_spartan6" xil_pn:prop_ck="5349504966102051856" xil_pn:start_ts="1465831577">
+    <transform xil_pn:end_ts="1526281797" xil_pn:in_ck="6750782493193004190" xil_pn:name="TRANEXT_xstsynthesize_spartan6" xil_pn:prop_ck="5349504966102051856" xil_pn:start_ts="1526281780">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="WarningsGenerated"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForInputs"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
       <status xil_pn:value="OutputChanged"/>
       <outfile xil_pn:name="_xmsgs/xst.xmsgs"/>
@@ -129,22 +130,22 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1465831599" xil_pn:in_ck="7846918934407302897" xil_pn:name="TRANEXT_ngdbuild_FPGA" xil_pn:prop_ck="-8592727776501213118" xil_pn:start_ts="1465831593">
+    <transform xil_pn:end_ts="1526281812" xil_pn:in_ck="7846918934407302897" xil_pn:name="TRANEXT_ngdbuild_FPGA" xil_pn:prop_ck="-8592727776501213118" xil_pn:start_ts="1526281805">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="WarningsGenerated"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForPredecessor"/>
       <outfile xil_pn:name="_ngo"/>
       <outfile xil_pn:name="_xmsgs/ngdbuild.xmsgs"/>
       <outfile xil_pn:name="battle_city_standalone.bld"/>
       <outfile xil_pn:name="battle_city_standalone.ngd"/>
       <outfile xil_pn:name="battle_city_standalone_ngdbuild.xrpt"/>
     </transform>
-    <transform xil_pn:end_ts="1465831620" xil_pn:in_ck="1626482594090280498" xil_pn:name="TRANEXT_map_spartan6" xil_pn:prop_ck="-2489532510156203999" xil_pn:start_ts="1465831599">
+    <transform xil_pn:end_ts="1526281829" xil_pn:in_ck="1626482594090280498" xil_pn:name="TRANEXT_map_spartan6" xil_pn:prop_ck="-2489532510156203999" xil_pn:start_ts="1526281812">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="WarningsGenerated"/>
       <status xil_pn:value="ReadyToRun"/>
-      <status xil_pn:value="OutOfDateForOutputs"/>
-      <status xil_pn:value="OutputChanged"/>
+      <status xil_pn:value="OutOfDateForPredecessor"/>
       <outfile xil_pn:name="_xmsgs/map.xmsgs"/>
       <outfile xil_pn:name="battle_city_standalone.pcf"/>
       <outfile xil_pn:name="battle_city_standalone_map.map"/>
@@ -155,9 +156,10 @@
       <outfile xil_pn:name="battle_city_standalone_summary.xml"/>
       <outfile xil_pn:name="battle_city_standalone_usage.xml"/>
     </transform>
-    <transform xil_pn:end_ts="1465831647" xil_pn:in_ck="-5652458005431999861" xil_pn:name="TRANEXT_par_spartan6" xil_pn:prop_ck="-3829590541433901613" xil_pn:start_ts="1465831620">
+    <transform xil_pn:end_ts="1526281845" xil_pn:in_ck="-5652458005431999861" xil_pn:name="TRANEXT_par_spartan6" xil_pn:prop_ck="-3829590541433901613" xil_pn:start_ts="1526281829">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForPredecessor"/>
       <outfile xil_pn:name="_xmsgs/par.xmsgs"/>
       <outfile xil_pn:name="battle_city_standalone.ncd"/>
       <outfile xil_pn:name="battle_city_standalone.pad"/>
@@ -169,9 +171,10 @@
       <outfile xil_pn:name="battle_city_standalone_pad.txt"/>
       <outfile xil_pn:name="battle_city_standalone_par.xrpt"/>
     </transform>
-    <transform xil_pn:end_ts="1465831675" xil_pn:in_ck="-1992277351040464833" xil_pn:name="TRANEXT_bitFile_spartan6" xil_pn:prop_ck="5341574683187206424" xil_pn:start_ts="1465831647">
+    <transform xil_pn:end_ts="1526281858" xil_pn:in_ck="-1992277351040464833" xil_pn:name="TRANEXT_bitFile_spartan6" xil_pn:prop_ck="5341574683187206424" xil_pn:start_ts="1526281845">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForPredecessor"/>
       <outfile xil_pn:name="_xmsgs/bitgen.xmsgs"/>
       <outfile xil_pn:name="battle_city_standalone.bgn"/>
       <outfile xil_pn:name="battle_city_standalone.bit"/>
@@ -181,9 +184,10 @@
       <outfile xil_pn:name="webtalk.log"/>
       <outfile xil_pn:name="webtalk_pn.xml"/>
     </transform>
-    <transform xil_pn:end_ts="1465831647" xil_pn:in_ck="-7379403800992585554" xil_pn:name="TRAN_postRouteTrce" xil_pn:prop_ck="445577401284416184" xil_pn:start_ts="1465831641">
+    <transform xil_pn:end_ts="1526281845" xil_pn:in_ck="-7379403800992585554" xil_pn:name="TRAN_postRouteTrce" xil_pn:prop_ck="445577401284416184" xil_pn:start_ts="1526281840">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForPredecessor"/>
       <outfile xil_pn:name="_xmsgs/trce.xmsgs"/>
       <outfile xil_pn:name="battle_city_standalone.twr"/>
       <outfile xil_pn:name="battle_city_standalone.twx"/>

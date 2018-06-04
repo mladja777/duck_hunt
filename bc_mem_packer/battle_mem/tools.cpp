@@ -1,3 +1,4 @@
+
 #include "tools.h"
 #include "bitmap.h"
 
@@ -9,9 +10,10 @@ void colors_to_mem( FILE * f, unsigned long addr )
 {
     unsigned int i;
 
-    for( i = 0; i < 255; i++ ) {
+    for( i = 0; i < 256; i++ ) {
         fprintf( f, "\t\t%lu =>\tx\"", addr );
 
+	
         if( i < num_colors ) {
             fprintf( f, "00%.2X%.2X%.2X", color_pallete[ i ].b, color_pallete[ i ].g, color_pallete[ i ].r );
         } else {
@@ -113,7 +115,7 @@ void process_images( const char * dir, FILE * mem_file, FILE * def_file, unsigne
     WIN32_FIND_DATA find_data;
     HANDLE          find;
 
-    sprintf( search_dir, ( type == IMG_16x16 ) ? "%s\\8x8\\*.bmp" : "%s\\16x16\\*.bmp", dir );
+    sprintf( search_dir, ( type == IMG_8x8 ) ? "%s\\8x8\\*.bmp" : "%s\\16x16\\*.bmp", dir );
 
     if( !( find = FindFirstFile( search_dir, &find_data ) ) ) {
         printf( "FindFirstFile failed.\n" );
@@ -122,14 +124,14 @@ void process_images( const char * dir, FILE * mem_file, FILE * def_file, unsigne
 
     do {
         if( !( find_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY ) ) {
-            sprintf( file_path, ( type == IMG_16x16 ) ? "%s\\8x8\\%s" : "%s\\16x16\\%s", dir, find_data.cFileName );
+            sprintf( file_path, ( type == IMG_8x8 ) ? "%s\\8x8\\%s" : "%s\\16x16\\%s", dir, find_data.cFileName );
 
             if( !( img = load_bitmap( file_path ) ) ) {
                 printf( "Failed to open: %s\n", file_path );
                 continue;
             }
 
-            sprintf( def_name, ( type == IMG_16x16 ) ? "IMG_8x8_%s" : "IMG_16x16_%s", find_data.cFileName );
+            sprintf( def_name, ( type == IMG_8x8 ) ? "IMG_8x8_%s" : "IMG_16x16_%s", find_data.cFileName );
 
             // Remove .bmp extension
             def_name[ strlen( def_name ) - 4 ] = '\0';
@@ -139,7 +141,7 @@ void process_images( const char * dir, FILE * mem_file, FILE * def_file, unsigne
             image_to_mem( mem_file, *base_addr, img, type, def_name );
 
             // Each image row gets split into 4 byte parts in order to fit memory size.
-            *base_addr += ( type == IMG_16x16 ) ? 8 * 2 : 16 * 4;
+            *base_addr += ( type == IMG_8x8 ) ? 8 * 2 : 16 * 4;
 
             free( img );
         }
@@ -165,28 +167,28 @@ void create_test_map( )
     while( ( tmp = fgetc( f ) ) != EOF ) {
         if( tmp >= '0' && tmp <= '9' ) {
             map[ x ].rot = 0;
-			
+
             if( tmp == '0' ) {
                 map[ x ].z = 0;
                 map[ x++ ].ptr = 0x017F; // crno
             } else if( tmp == '1' ) {
-                map[ x ].z = 1;
-				map[ x++ ].ptr = 0x01FF; // mario
+                map[ x ].z = 0;
+                map[ x++ ].ptr = 0x01FF; // mario
             } else if( tmp == '2' ) {
-                map[ x ].z = 2; 
-				map[ x++ ].ptr = 0x00FF; // cigla
+                map[ x ].z = 0;
+                map[ x++ ].ptr = 0x00FF; // cigla
             } else if( tmp == '3' ) {
-                map[ x ].z = 3;
-				map[ x++ ].ptr = 0x023F; // plava cigla
+                map[ x ].z = 1;
+                map[ x++ ].ptr = 0x023F; // plava cigla
             } else if( tmp == '4' ) {
-                map[ x ].z = 4; 
-				map[ x++ ].ptr = 0x01BF; // enemi
+                map[ x ].z = 2;
+                map[ x++ ].ptr = 0x01BF; // enemi
             } else if( tmp == '5' ) {
-                map[ x ].z = 5;
-				map[ x++ ].ptr = 0x013F; // coin
+                map[ x ].z = 1;
+                map[ x++ ].ptr = 0x013F; // coin
 			}else{
 				 map[ x ].z = 0;
-				 map[ x++ ].ptr = 0x0000; // null
+                 map[ x++ ].ptr = 0x0000; // null
 			}
         }
     }
@@ -196,49 +198,31 @@ void create_test_map( )
 
 void map_to_mem( FILE * mem_file, FILE * def_file, FILE * hdr_file, unsigned long * base_addr )
 {
-    unsigned int i, j = 0;
+    unsigned int i;
 
     fprintf( def_file, "#define MAP_BASE_ADDRESS\t\t\t0x%.4X", *base_addr );
+
+    fprintf( hdr_file, "map_entry_t map1[ 4800 ] = {\n" );
+
     for( i = 0; i < NUM_MAP_ENTRIES; i++ ) {
-
-		//matrica[30][160]
-
-		fprintf( hdr_file, "#ifndef _MAP_H_\n", *base_addr );
-
-        fprintf( hdr_file, "unsigned char  map1[30][160] = {\n" );
-
-		for( i = 0; i < NUM_MAP_ENTRIES; i++ ) {
-			//fprintf( mem_file, "%d\n", map[ i ].z );
-			fprintf( mem_file, "\t\t%lu =>\tx\"%.2X%.2X%.4X\", -- z: %d rot: %d ptr: %d\n", *base_addr,
+        fprintf( mem_file, "\t\t%lu =>\tx\"%.2X%.2X%.4X\", -- z: %d rot: %d ptr: %d\n", *base_addr,
                                                                                          map[ i ].z,
                                                                                          map[ i ].rot,
                                                                                          map[ i ].ptr,
                                                                                          map[ i ].z,
                                                                                          map[ i ].rot,
                                                                                          map[ i ].ptr );
-			if(j == 0)
-			{
-				fprintf( hdr_file, "{ " );
-			}
-			fprintf( hdr_file, ( i == NUM_MAP_ENTRIES - 1 ) ? "%d, "
-															: "%d, ", map[ i ].z);
-			if(j >= 159)
-				fprintf( hdr_file, "\n{ " );
-			}
-			fprintf( hdr_file, ( i == NUM_MAP_ENTRIES - 1 ) ? "%d, "
-															: "%d, ", map[ i ].z);
-			if(j >= 79)
-			{
-				fprintf( hdr_file, " },\n");
-				j = 0;
-			}
-			else
-			{
-				j++;
-			}
 
-			*base_addr += 1;
-		}
+        fprintf( hdr_file, ( i == NUM_MAP_ENTRIES - 1 ) ? "    { %u, %u, 0x%.4X, 0 }  // x: %u y: %u\n"
+                                                        : "    { %u, %u, 0x%.4X, 0 }, // x: %u y: %u\n",
+                            map[ i ].z,
+                            map[ i ].rot,
+                            map[ i ].ptr,
+                            i % 80,
+                            i / 80 );
 
-		fprintf( hdr_file, "\n};\n" );
+        *base_addr += 1;
+    }
+
+    fprintf( hdr_file, "};\n" );
 }
